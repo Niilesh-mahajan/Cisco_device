@@ -13,28 +13,28 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
     net_connect = ConnectHandler(**connect)
     print net_connect.find_prompt()
     redispatch(net_connect,device_type = dev_type)
-    if dev_ip =='10.10.10.10':                        #any IOS IP
+    if dev_ip =='10.10.10.10':                                                                   #Give any Cisco IOS IP
             net_connect.enable()
             net_connect.send_command('\n')
-            output1 = net_connect.send_command('show process cpu | in CPU')
+            output1 = net_connect.send_command('show process cpu | in CPU')                      #You can use without include
             output = net_connect.send_command('show memory | in Processor  ')
             print(output1,output)
             net_connect.disconnect()
             
-    elif dev_ip == '10.10.10.11':                    #Give any Firewall IP
+    elif dev_ip == '10.10.10.11':                                                                #Give any Cisco Firewall IP
             net_connect.enable()
-            net_connect.send_command('changeto con sys',expect_string='<Hostname>#')
-            output = net_connect.send_command('show cpu usa con all')
+            net_connect.send_command('changeto context sys',expect_string='<Hostname>#')         #Enter your Firewall name 
+            output = net_connect.send_command('show cpu usage conext all')                       #If you have multiple context
             output1 = net_connect.send_command('show memory | in Used')
             print(output,output1)
             net_connect.disconnect()
-    elif dev_ip == '10.10.10.12':                   #Give any Star OS IP
+    elif dev_ip == '10.10.10.12':                                                                #Give any Star OS IP
             output=net_connect.send_command('show cpu table | grep "M "')
-            output1 = output,net_connect.send_command('show temp')
+            output1 = output,net_connect.send_command('show temperature')
             
-    else:                                           #For Nexus OS 
-        output=net_connect.send_command('show sys resou')
-        output1=net_connect.send_command('show env temp')
+    else:                                                                                        #For Nexus OS 
+        output=net_connect.send_command('show system resources')
+        output1=net_connect.send_command('show environment temperature')
         print (output,output1)
         f = open('health.csv','w')
         for line in output:
@@ -48,14 +48,3 @@ dev_connect('cisco_ios','10.10.10.12','<Username>','<Password>','')
 dev_connect('cisco_ios','10.10.10.10','<Username>','<Password>','<Enable secret password>')
 dev_connect('cisco_ios','10.10.10.13','<Username>','<Password>','<Enable secret password>')
 dev_connect('cisco_ios','10.10.10.14','<Username>','<Password>','<Enable secret password>')
-.
-. 
-.
-.
-(Given IPs are only for example)
-(health.csv will save to default location)
-(To check your path use)
-import sys
-sys.path 
-(and execute)
-(also you can check your current session in output.txt )
