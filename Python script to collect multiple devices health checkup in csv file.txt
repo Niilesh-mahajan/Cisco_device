@@ -1,0 +1,61 @@
+from netmiko import ConnectHandler
+from netmiko import redispatch
+from getpass import getpass
+import csv
+
+def dev_connect(dev_type,dev_ip,user,pw,sec):
+    connect = {
+        'device_type': dev_type,
+        'ip': dev_ip,
+        'username':user,
+        'password':pw,'secret':sec,'session_log':'output.txt' }
+    
+    net_connect = ConnectHandler(**connect)
+    print net_connect.find_prompt()
+    redispatch(net_connect,device_type = dev_type)
+    if dev_ip =='10.10.10.10':                        #any IOS IP
+            net_connect.enable()
+            net_connect.send_command('\n')
+            output1 = net_connect.send_command('show process cpu | in CPU')
+            output = net_connect.send_command('show memory | in Processor  ')
+            print(output1,output)
+            net_connect.disconnect()
+            
+    elif dev_ip == '10.10.10.11':                    #Give any Firewall IP
+            net_connect.enable()
+            net_connect.send_command('changeto con sys',expect_string='<Hostname>#')
+            output = net_connect.send_command('show cpu usa con all')
+            output1 = net_connect.send_command('show memory | in Used')
+            print(output,output1)
+            net_connect.disconnect()
+    elif dev_ip == '10.10.10.12':                   #Give any Star OS IP
+            output=net_connect.send_command('show cpu table | grep "M "')
+            output1 = output,net_connect.send_command('show temp')
+            
+    else:                                           #For Nexus OS 
+        output=net_connect.send_command('show sys resou')
+        output1=net_connect.send_command('show env temp')
+        print (output,output1)
+        f = open('health.csv','w')
+        for line in output:
+            f.write(line)
+        net_connect.disconnect()
+
+        f.close()
+
+dev_connect('cisco_ios','10.10.10.11','<Username>','<Password>','<Enable secret password>')
+dev_connect('cisco_ios','10.10.10.12','<Username>','<Password>','')
+dev_connect('cisco_ios','10.10.10.10','<Username>','<Password>','<Enable secret password>')
+dev_connect('cisco_ios','10.10.10.13','<Username>','<Password>','<Enable secret password>')
+dev_connect('cisco_ios','10.10.10.14','<Username>','<Password>','<Enable secret password>')
+.
+. 
+.
+.
+(Given IPs are only for example)
+(health.csv will save to default location)
+(To check your path use)
+import sys
+sys.path 
+(and execute)
+(also you can check your current session in output.txt )
