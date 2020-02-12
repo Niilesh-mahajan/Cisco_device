@@ -10,5 +10,5 @@ Python script to collect Multiple Cisco devices (IOS, Nexus, Star OS, ASA) healt
 (To check your path use)
 import sys
 sys.path 
-(and execute)
-(also you can check your current session in output.txt )
+(and run)
+(also you can check your current session log in output.txt )
