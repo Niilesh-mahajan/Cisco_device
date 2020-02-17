@@ -1,6 +1,6 @@
 # Cisco_device
 
-This Pyhton script connect to cisco devices (IOS, Nexus, StarOS, ASA) using SSH and execute Health Checkup command (for memory usage, CPU usage) and save the output in CSV file
+This Pyhton script connect cisco devices (IOS, Nexus, StarOS, ASA) using SSH and execute Health Checkup command (for memory usage, CPU usage) and save the output in CSV file
 .
 . 
 .
