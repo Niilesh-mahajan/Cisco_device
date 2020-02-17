@@ -1,6 +1,6 @@
 # Cisco_device
-Python script to collect Multiple Cisco devices (IOS, Nexus, Star OS, ASA) health checkup in csv file
 
+This Pyhton script connect to cicso devices (IOS, Nexus, StarOS, ASA) using SSH and execute Health Checkup command and save the output in CSV file 
 .
 . 
 .
