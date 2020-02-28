@@ -61,7 +61,7 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             f.write(line)
         net_connect.disconnect()
 
-f.close()
+    f.close()
 
 dev_connect('cisco_ios','10.10.10.11','<Username>','<Password>','<Enable secret password>')
 dev_connect('cisco_ios','10.10.10.12','<Username>','<Password>','')
