@@ -38,6 +38,7 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             for line in output1:
                 f.write(line)
             net_connect.disconnect()
+
     elif dev_ip == '10.10.10.12':                                                                #Give any Star OS IP
             output=net_connect.send_command('show cpu table | grep "M "')
             output1 = output,net_connect.send_command('show temperature')
@@ -48,6 +49,7 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             for line in output1:
                 f.write(line)
             net_connect.disconnect()
+
     else:                                                                                        #For Nexus OS 
         output=net_connect.send_command('show system resources')
         output1=net_connect.send_command('show environment temperature')
