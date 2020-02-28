@@ -20,6 +20,8 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             output = net_connect.send_command('show memory | in Processor  ')
             print(output1,output)
             f = open('health.csv','a')
+            for line in output1:
+                f.write(line)
             for line in output:
                 f.write(line)
             net_connect.disconnect()
@@ -33,12 +35,17 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             f = open('health.csv','a')
             for line in output:
                 f.write(line)
+            for line in output1:
+                f.write(line)
             net_connect.disconnect()
     elif dev_ip == '10.10.10.12':                                                                #Give any Star OS IP
             output=net_connect.send_command('show cpu table | grep "M "')
             output1 = output,net_connect.send_command('show temperature')
+            Print(output,output1)
             f = open('health.csv','a')
             for line in output:
+                f.write(line)
+            for line in output1:
                 f.write(line)
             net_connect.disconnect()
     else:                                                                                        #For Nexus OS 
@@ -48,9 +55,11 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
         f = open('health.csv','a')
         for line in output:
             f.write(line)
+        for line in output1:
+            f.write(line)
         net_connect.disconnect()
 
-        f.close()
+f.close()
 
 dev_connect('cisco_ios','10.10.10.11','<Username>','<Password>','<Enable secret password>')
 dev_connect('cisco_ios','10.10.10.12','<Username>','<Password>','')
