@@ -19,6 +19,9 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             output1 = net_connect.send_command('show process cpu | in CPU')                      #You can use without include
             output = net_connect.send_command('show memory | in Processor  ')
             print(output1,output)
+            f = open('health.csv','a')
+            for line in output:
+                f.write(line)
             net_connect.disconnect()
             
     elif dev_ip == '10.10.10.11':                                                                #Give any Cisco Firewall IP
@@ -27,16 +30,22 @@ def dev_connect(dev_type,dev_ip,user,pw,sec):
             output = net_connect.send_command('show cpu usage conext all')                       #If you have multiple context
             output1 = net_connect.send_command('show memory | in Used')
             print(output,output1)
+            f = open('health.csv','a')
+            for line in output:
+                f.write(line)
             net_connect.disconnect()
     elif dev_ip == '10.10.10.12':                                                                #Give any Star OS IP
             output=net_connect.send_command('show cpu table | grep "M "')
             output1 = output,net_connect.send_command('show temperature')
-            
+            f = open('health.csv','a')
+            for line in output:
+                f.write(line)
+            net_connect.disconnect()
     else:                                                                                        #For Nexus OS 
         output=net_connect.send_command('show system resources')
         output1=net_connect.send_command('show environment temperature')
         print (output,output1)
-        f = open('health.csv','w')
+        f = open('health.csv','a')
         for line in output:
             f.write(line)
         net_connect.disconnect()
